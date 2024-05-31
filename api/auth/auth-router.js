@@ -17,7 +17,11 @@ router.post("/register", async (req, res) => {
     const newUser = await db("users").where({ id }).first();
     res.status(201).json(newUser);
   } catch (e) {
-    res.status(400).json({ message: "username taken" });
+    if (e.code === 'SQLITE_CONSTRAINT') { // SQLite specific error code for unique constraint
+      res.status(400).json({ message: "username taken" });
+    } else {
+      res.status(500).json({ message: "Internal server error" });
+    }
   }
 });
 
