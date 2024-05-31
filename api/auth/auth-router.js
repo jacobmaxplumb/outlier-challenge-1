@@ -40,7 +40,7 @@ router.post("/login", async (req, res) => {
       res.status(401).json({ message: "invalid credentials" });
     }
   } catch (e) {
-    res.status(500).json({ message: "An error occurred" });
+    res.status(500).json({ message: "username and password required" });
   }
 });
 
